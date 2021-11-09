@@ -1,0 +1,38 @@
+.Card {
+  width: 200px;
+  margin: 10px;
+  height: auto;
+  padding: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-radius: 30px 8px;
+  background-color: #474747;
+  text-decoration: underline #474747;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.CardName{
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.CardContent {
+  width: 160px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.CardImg{
+  margin-top: 40px;
+}
+
+.ProductPrice{
+  text-align: right;
+ font-size: 20px;
+}
+
+.cardLink{
+  height: 20px;
+}

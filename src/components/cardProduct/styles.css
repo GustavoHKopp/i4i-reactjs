@@ -11,6 +11,7 @@
   background-color: #474747;
   text-decoration: underline #474747;
   font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 
 .CardName{
@@ -35,4 +36,34 @@
 
 .cardLink{
   height: 20px;
+}
+
+.modalProductName{
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.letersModalStyles{
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  width: 450px;
+}
+
+.removeItemButton{
+  background-color: red;
+  width: 70px;
+  height: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  border-radius: 8px;
+  border: none;
+}
+
+.removeItemButton:hover{
+  background-color: rgb(197, 4, 4)
+}
+
+.removeItemContainer{
+  display: flex;
+  justify-content: right;
 }

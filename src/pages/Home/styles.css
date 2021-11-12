@@ -64,50 +64,64 @@
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.formAddProducts{
+.loginAreaContainer{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginArea{
+  width: 604px;
+  height: 411px;
+  background: url('https://cdn.pixabay.com/photo/2014/06/16/23/39/black-370118_640.png');
+  -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+  box-shadow: 5px 5px 15px 5px #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginAreaTitle{
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(92, 91, 91);
+  color: white;
+  text-align: center;
+}
+
+.loginAreaText{
+  font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
 
-.formTitle{
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
-}
-
-.inputModal{
-  resize: none;
-  background-color: white;
-  background-position: 10px 10px;
-  border: 2.5px solid rgb(114, 113, 113);
-  background-repeat: no-repeat;
-  width: 260px;
+.loginAreaInput{
+  width: 180px;
   height: 30px;
-  padding-left: 10px;
-  border-radius: 8px;
+  text-align: center;
 }
 
-.inputModal:focus{
-  border: 3px solid rgb(109, 108, 108);
-}
-
-.textAreaModal{
-  width: 100%;
-  height: 100px;
-  padding-left: 10px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  border:2px solid rgb(114, 113, 113);
-  resize: none;
-  border-radius: 8px;
-}
-
-.addProductsTitle{
-  font-family: Arial, Helvetica, sans-serif;
+.loginAreaButton{
+  width: 190px;
+  height: 40px;
+  padding: 10px;
+  background-color: green;
+  border: none;
+  margin: 20px;
   color: white;
 }
 
-.modalContainer{
-  background: rgba(0,0,0,.5);
+.loginAreaButton:hover{
+ background-color: #015e01;
+}
+
+.inputArea{
+  text-align: center;
+  margin: 80px;
+}
+
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 100px;
 }

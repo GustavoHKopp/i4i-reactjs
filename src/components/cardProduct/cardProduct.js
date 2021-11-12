@@ -1,30 +1,17 @@
 import { Card } from "antd";
 import {useState} from 'react'
-import { deleteItem } from "../../services/products";
-import Modal from 'react-modal'
 import './styles.css'
+import { DeleteProductModal } from "../modal/deleteProduct";
 
-const ProductCard = ({name,img_url, price, description, id}) => {
-  const [modlaIsOpen, setModlaIsOpen] = useState(false)
+const ProductCard = ({handleDelete, name, img_url, price, description, id}) => {
+  const [modalIsVisible, setModalIsVisible] = useState(false)
 
   const openModalInformations = () => {
-    setModlaIsOpen(true)
+    setModalIsVisible(true)
   }
   
   const handleCloseModal = () => {
-    setModlaIsOpen(false)
-  }
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRIght: '-50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: 'rgba(53,53,53)'
-    }
+    setModalIsVisible(false)
   }
 
   // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -37,22 +24,16 @@ const ProductCard = ({name,img_url, price, description, id}) => {
       </div>
     </Card>
   </a>
-  
-  <Modal 
-  isOpen={modlaIsOpen}
-  onRequestClose={handleCloseModal}
-  style={customStyles}>
-  <h1 className="modalProductName">{name}</h1>
-  <img className="CardImg" alt={name} src={img_url} width="500" height="350" />
-  <p className="letersModalStyles">{description}</p>
-  <p className="letersModalStyles"><small>R$ {price}</small></p>
-  <div className="removeItemContainer">
-  <button className="removeItemButton" >Remover</button>
-  </div>
-</Modal>
+    <DeleteProductModal handleDelete={() => handleDelete(id)} 
+    handleCloseModal={handleCloseModal} 
+    modalIsVisible={modalIsVisible} 
+    name={name} 
+    price={price} 
+    img_url={img_url}
+    id={id} 
+    description={description} />
     </>
   )
-
 }
 
 export {ProductCard}

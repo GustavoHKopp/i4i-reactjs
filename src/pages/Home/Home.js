@@ -2,61 +2,112 @@ import { useEffect, useState } from "react"
 import { ProductCard } from "../../components/cardProduct/cardProduct"
 import Modal from 'react-modal'
 import './styles.css'
-import { addItems, getAllProducts } from "../../services/products"
+import { addItems, deleteItem, getAllProducts } from "../../services/products"
+import { AddProductsModal } from "../../components/modal/addProducts"
+import {Spin} from 'antd'
 
   Modal.setAppElement('#root')
 const HomePage = () => {
-  const [products, setProducts] = useState([{}])
-  const [modlaIsOpen, setModlaIsOpen] = useState(false)
-
-
+  const [products, setProducts] = useState([])
+  const [modalIsVisible, setmodalIsVisible] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [userLoggade, setUserLoggade] = useState(false)
   
-  const addProductModal = (e) => {
-
-    const {data} = addItems({
-      
-    })
-  
-    setProducts(data)
-
-    setModlaIsOpen(false)
-  }
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
-    const {data} = await getAllProducts()
+    setIsLoading(true)
+    const {data} = await getAllProducts() 
     setProducts(data)
+    setIsLoading(false)
   }, [])
 
   const openModal = () => {
-    setModlaIsOpen(true)
+    setmodalIsVisible(true)
+  }
+  const handleDelete = async(id) => {
+    try{
+     setIsLoading(true)
+      await deleteItem(id)
+      handleCloseModal()
+      const {data} = await getAllProducts()
+    setProducts(data)
+
+    setIsLoading(false)
+
+    } catch(e) {
+      console.log(e)
+    }
   }
   
   const handleCloseModal = () => {
-    setModlaIsOpen(false)
+    setmodalIsVisible(false)
   }
+  const handleRequest = async ({name, img_url, price, description}) =>{
+    setIsLoading(true)
+  const {data} = await addItems(
+    name,
+    img_url,
+    price,
+    description
+  )
+  setProducts([...products, data])
+  setmodalIsVisible(false)
+  setIsLoading(false)
+}
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRIght: '-50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: 'rgb(92, 91, 91)',
-    }
+const userAdmin = {
+  name: 'admin',
+  password: 'admin'
+}
+
+const checkUser = () =>{
+  const name = document.getElementById('nameInput').value
+  const password = document.getElementById('senhaInput').value
+
+  if(name === userAdmin.name && password === userAdmin.password){
+    console.log('entrou')
+    setUserLoggade(true)
+  } else {
+    console.log('login invalidas')
   }
+}
 
+if(isLoading){
+  return <Spin typ="Loading..." size="large">
+
+  </Spin>
+}
+
+  if(userLoggade === false){
+    return( <>
+      <div className="loginAreaContainer">
+        <div className="loginArea">
+          <div className="title">
+          <h1 className="loginAreaTitle">LOGIN</h1>
+          </div>
+          <div className="inputArea">
+          <label className="loginAreaText">Nome</label><br />
+          <input type="text" id="nameInput" className="loginAreaInput" placeholder="digite seu nome"></input><br />
+          <label className="loginAreaText">Senha</label><br />
+          <input type="password" id="senhaInput" className="loginAreaInput" placeholder="digite sua senha"></input><br />
+          <button className="loginAreaButton" onClick={checkUser}>ENTRAR</button>
+          </div>
+        </div>
+      </div>
+      </>)
+  }
   return<>
+  
   <h1 className="homeName">LOJINHA DO SEU ZÉ</h1>
   <div className="HomePageContent">
-  {products?.map(({name,img_url, price, description}) => {
+  {products?.map(({id, name, img_url, price, description}) => {
     return <ProductCard
+    handleDelete={handleDelete}
     name={name}
     img_url={img_url}
     price={price}
-    description={description} />
+    description={description}
+    id={id} />
   })} 
   </div>
 
@@ -65,61 +116,12 @@ const HomePage = () => {
 </div>
 
 <div className="modalContainer">
-<Modal 
-isOpen={modlaIsOpen}
-onRequestClose={handleCloseModal}
-style={customStyles}>
-<h2 className="addProductsTitle">Adicionar um Produto</h2>
-<div className="formAddProducts">
-
-  <label>Nome:</label><br /> 
-
-  <input  
-  type='text' 
-  id="name"
-  className="inputModal" 
-  placeholder="digite o nome do produto"
-  ></input><br />
-  <label>Imagem:</label><br /> 
-
-  <input  
-  type='text' 
-  id="img_url"
-  className="inputModal" 
-  placeholder="URL da imagem do produto"
-  ></input><br />
-
-  <label>Preço:</label><br /> 
-
-  <input  
-  type='text' 
-  id="price"
-  className="inputModal" 
-  placeholder="digite o preço do produto"
-  ></input><br />
-
-  <div className="textareaDescription">
-
-  <label>Desrição:</label> <br /> 
-
-  <textarea 
-  id="inputDescription" 
-  className="textAreaModal" 
-  placeholder="descrição do produto" 
-  rows="5" 
-  cols="33"
-  ></textarea>
 
   </div>
-
-  <div className="addProductButtonContainer">
-  <button className="addProductButton" onClick={addProductModal}>Adicionar produto</button>
-  </div>
-
-</div>
-
-</Modal>
-  </div>
+  <AddProductsModal 
+  handleCloseModal={handleCloseModal} 
+  modalIsVisible={modalIsVisible} 
+  handleRequest={handleRequest} />
     </>
 }
 

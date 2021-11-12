@@ -4,12 +4,12 @@ import api from "../http"
     return api.get('/items')
 }
 
-const addItems = () => {
-  return api.post('/item/add')
+const addItems = (name, img_url, price, description) => {
+  return api.post('/item/add', {name: name, price: price, description: description, img_url: img_url}) 
 }
 
-const deleteItem = () => {
-  return api.delete('/item/:id')
+const deleteItem = (id) => {
+  return api.delete(`/item/${id}`)
 }
 
 export {getAllProducts, addItems, deleteItem}

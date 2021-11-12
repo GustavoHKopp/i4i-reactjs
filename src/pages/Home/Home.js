@@ -65,10 +65,9 @@ const checkUser = () =>{
   const password = document.getElementById('senhaInput').value
 
   if(name === userAdmin.name && password === userAdmin.password){
-    console.log('entrou')
     setUserLoggade(true)
   } else {
-    console.log('login invalidas')
+    setUserLoggade(false)
   }
 }
 
@@ -80,6 +79,9 @@ if(isLoading){
 
   if(userLoggade === false){
     return( <>
+    <div className="alertContainer">
+    <div className="aletInformations">Informe os Dados!!!</div>
+    </div>
       <div className="loginAreaContainer">
         <div className="loginArea">
           <div className="title">
@@ -97,8 +99,7 @@ if(isLoading){
       </>)
   }
   return<>
-  
-  <h1 className="homeName">LOJINHA DO SEU ZÉ</h1>
+  <h1 className="homeName">LOJA i4i</h1>
   <div className="HomePageContent">
   {products?.map(({id, name, img_url, price, description}) => {
     return <ProductCard
